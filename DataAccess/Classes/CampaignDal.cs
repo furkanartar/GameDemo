@@ -20,27 +20,14 @@ namespace DataAccess
             };
         }
 
-        public void Add(Campaign campaign, Game game, Player player)
+        public void Add(Campaign campaign)
         {
             _campaigns.Add(campaign);
-            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaign.Title} adlı kampanyayı {game.GameName} adlı oyun için ekledi.");
+            Console.WriteLine($"{campaign.Title} adlı kampanyayı ekledi.");
+
         }
 
-        public void Delete(Campaign campaign, Player player)
-        {
-            foreach (var _campaign in _campaigns)
-            {
-                if (_campaign.Id != campaign.Id)
-                {
-                    _campaign.GameID = 0;
-                    _campaign.Title = "DELETED";
-                    _campaign.DiscountRate = 0;
-                }
-            }
-            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaign.Title} adlı kampanyayı sildi.");
-        }
-
-        public void Update(Campaign campaign, Game game, Player player)
+        public void Update(Campaign campaign)
         {
             foreach (var _campaign in _campaigns)
             {
@@ -51,7 +38,32 @@ namespace DataAccess
                     _campaign.DiscountRate = campaign.DiscountRate;
                 }
             }
-            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaign.Title} adlı kampanyayı güncelledi.");
+            Console.WriteLine($"{campaign.Title} adlı kampanya güncellendi.");
+        }
+
+        public void Delete(Campaign campaign)
+        {
+            foreach (var _campaign in _campaigns)
+            {
+                if (_campaign.Id != campaign.Id)
+                {
+                    _campaign.GameID = 0;
+                    _campaign.Title = "DELETED";
+                    _campaign.DiscountRate = 0;
+                }
+            }
+            Console.WriteLine($"{campaign.Title} adlı kampanyayı sildi.");
+
+        }
+
+        public List<Campaign> GetAllCampaigns()
+        {
+            return _campaigns;
+        }
+
+        public int CampaignCount()
+        {
+            return _campaigns.Count;
         }
 
         //public double DiscountedGamePrice(int gameId, double campaignDiscountedRate)

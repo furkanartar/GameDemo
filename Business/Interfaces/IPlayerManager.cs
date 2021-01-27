@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System.Collections.Generic;
+using Entities;
 
 namespace Business.Interfaces
 {
@@ -7,5 +8,7 @@ namespace Business.Interfaces
         void Add(Player player);
         void Update(Player player);
         void Delete(Player player);
+        int PlayerCount();
+        List<Player> GetAllPlayers();
     }
 }

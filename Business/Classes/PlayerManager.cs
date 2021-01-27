@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Business.Interfaces;
 using DataAccess;
@@ -8,7 +9,7 @@ namespace Business.Classes
 {
     public class PlayerManager:IPlayerManager
     {
-        PlayerDal playerDal = new PlayerDal();
+        PlayerDal _playerDal = new PlayerDal();
 
         public void Add(Player player)
         {
@@ -16,7 +17,7 @@ namespace Business.Classes
 
             if (edevletServiceAdapter.CheckIfRealPerson(player))
             {
-                playerDal.Add(player);
+                _playerDal.Add(player);
             }
             else
             {
@@ -26,12 +27,22 @@ namespace Business.Classes
 
         public void Update(Player player)
         {
-            playerDal.Update(player);
+            _playerDal.Update(player);
         }
 
         public void Delete(Player player)
         {
-            playerDal.Delete(player);
+            _playerDal.Delete(player);
+        }
+
+        public int PlayerCount()
+        {
+            return _playerDal.PlayerCount();
+        }
+
+        public List<Player> GetAllPlayers()
+        {
+            return _playerDal.GetAllPlayers();
         }
     }
 }

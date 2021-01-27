@@ -66,7 +66,12 @@ namespace DataAccess
             Console.WriteLine($"{player.FirstName} isimli oyuncu silindi.");
         }
 
-        public List<Player> GetPlayers()
+        public int PlayerCount()
+        {
+            return _players.Count;
+        }
+
+        public List<Player> GetAllPlayers()
         {
             return _players;
         }

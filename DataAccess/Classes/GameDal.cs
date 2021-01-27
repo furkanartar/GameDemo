@@ -22,7 +22,7 @@ namespace DataAccess
         public void Buy(Game game, Player player)
         {
             PlayerDal playerDal = new PlayerDal(); 
-            foreach (var _player in playerDal.GetPlayers())
+            foreach (var _player in playerDal.GetAllPlayers())
             {
                 if (player.NationalityId == _player.NationalityId)
                 {
@@ -68,6 +68,11 @@ namespace DataAccess
                 }
             }
             Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından güncellendi.");
+        }
+
+        public int GameCount()
+        {
+            return _games.Count;
         }
 
         public List<Game> GetAllGames()

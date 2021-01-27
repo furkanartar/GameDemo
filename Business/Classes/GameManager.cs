@@ -29,6 +29,10 @@ namespace Business.Classes
         {
             _gameDal.Delete(game, player);
         }
+        public int GameCount()
+        {
+            return _gameDal.GameCount();
+        }
 
         public List<Game> GetAllGames()
         {
