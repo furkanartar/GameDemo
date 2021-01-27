@@ -30,8 +30,10 @@ namespace Business.Classes
             _gameDal.Delete(game, player);
         }
 
-        public List<Game> GetAllGames(List<Game> games)
+        public List<Game> GetAllGames()
         {
+            List<Game> games = new List<Game>();
+            games = _gameDal.GetAllGames();
             return games;
         }
     }

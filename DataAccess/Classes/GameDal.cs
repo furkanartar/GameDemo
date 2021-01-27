@@ -38,16 +38,35 @@ namespace DataAccess
 
         public void Add(Game game, Player player)
         {
+            _games.Add(game);
             Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından eklendi");
         }
 
         public void Delete(Game game, Player player)
         {
+            foreach (var _game in _games)
+            {
+                if (game.GameName == _game.GameName)
+                {
+                    _game.GameName = "DELETED";
+                    _game.GameDescription = "DELETED";
+                    _game.UnitPrice = 0;
+                }
+            }
             Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından silindi");
         }
 
         public void Update(Game game, Player player)
         {
+            foreach (var _game in _games)
+            {
+                if (_game.GameName == _game.GameName)
+                {
+                    _game.GameName = game.GameName;
+                    _game.GameDescription = game.GameDescription;
+                    _game.UnitPrice = game.UnitPrice;
+                }
+            }
             Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından güncellendi.");
         }
 

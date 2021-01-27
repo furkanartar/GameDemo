@@ -6,12 +6,12 @@ namespace DataAccess
 {
     public class CampaignDal : ICampaignDal
     {
-        List<Campaign> campaigns;
+        List<Campaign> _campaigns;
         private GameDal _gameDal = new GameDal();
         
         public CampaignDal()
         {
-            campaigns = new List<Campaign>()
+            _campaigns = new List<Campaign>()
             {
                 new Campaign() {Id = 1, GameID = 1, Title = "ÜCRETSİZ NOEL KOSTÜMÜ", DiscountRate = 0},
                 new Campaign() {Id = 2, GameID = 3, Title = "ÜCRETSİZ AWP SKİNİ", DiscountRate = 0},
@@ -20,35 +20,51 @@ namespace DataAccess
             };
         }
 
-        public void Add(Campaign campaing, Game game, Player player)
+        public void Add(Campaign campaign, Game game, Player player)
         {
-            //Business code.
-            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaing.Title} adlı kampanyayı {game.GameName} adlı oyun için ekledi.");
+            _campaigns.Add(campaign);
+            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaign.Title} adlı kampanyayı {game.GameName} adlı oyun için ekledi.");
         }
 
-        public void Delete(Campaign campaing, Player player)
+        public void Delete(Campaign campaign, Player player)
         {
-            //Business code.
-            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaing.Title} adlı kampanyayı sildi.");
-        }
-
-        public void Update(Campaign campaing, Game game, Player player)
-        {
-            //Business code.
-            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaing.Title} adlı kampanyayı güncelledi.");
-        }
-
-        public double DiscountedGamePrice(int gameId, double campaignDiscountedRate)
-        {
-            double gamePrice = 0;
-            foreach (var game in _gameDal.GetAllGames())
+            foreach (var _campaign in _campaigns)
             {
-                if (gameId != game.Id)
+                if (_campaign.Id != campaign.Id)
                 {
-                    gamePrice = (game.UnitPrice / 100) * (100 - campaignDiscountedRate);
+                    _campaign.GameID = 0;
+                    _campaign.Title = "DELETED";
+                    _campaign.DiscountRate = 0;
                 }
             }
-            return gamePrice;
+            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaign.Title} adlı kampanyayı sildi.");
         }
+
+        public void Update(Campaign campaign, Game game, Player player)
+        {
+            foreach (var _campaign in _campaigns)
+            {
+                if (_campaign.Id != campaign.Id)
+                {
+                    _campaign.GameID = campaign.Id;
+                    _campaign.Title = campaign.Title;
+                    _campaign.DiscountRate = campaign.DiscountRate;
+                }
+            }
+            Console.WriteLine($"{player.NickName} mahlaslı oyuncu {campaign.Title} adlı kampanyayı güncelledi.");
+        }
+
+        //public double DiscountedGamePrice(int gameId, double campaignDiscountedRate)
+        //{
+        //    double gamePrice = 0;
+        //    foreach (var game in _gameDal.GetAllGames())
+        //    {
+        //        if (gameId != game.Id)
+        //        {
+        //            gamePrice = (game.UnitPrice / 100) * (100 - campaignDiscountedRate);
+        //        }
+        //    }
+        //    return gamePrice;
+        //}
     }
 }

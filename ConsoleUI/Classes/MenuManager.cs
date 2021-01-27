@@ -9,7 +9,7 @@ namespace ConsoleUI
     public class MenuManager
     {
         PlayerManager _playerManager = new PlayerManager();
-        private GameManager _gameManager = new GameManager();
+        GameManager _gameManager = new GameManager();
         short _select;
         private int _id = 4;
 
@@ -81,6 +81,7 @@ namespace ConsoleUI
             _playerManager.Delete(player);
         }
 
+
         public void GameMainMenu()
         {
             Console.WriteLine("---------- OYUN MENÜSÜ ----------");
@@ -94,9 +95,9 @@ namespace ConsoleUI
         }
         public void GameAddMenu()
         {
-            Console.Write("Mahlasınız: ");
+            Console.Write("\n" + "\n" + "Mahlasınız: ");
             string nickName = Console.ReadLine();
-            Console.WriteLine("\n" + "\n" + "Oyun bilgilerini sırayla giriniz: ");
+            Console.WriteLine("Oyun bilgilerini sırayla giriniz: ");
             Console.Write("Oyun adı: ");
             string gameName = Console.ReadLine();
             Console.Write("Oyunun açıklaması: ");
@@ -134,10 +135,39 @@ namespace ConsoleUI
             Player player = new Player() { NickName = nickName};
             _gameManager.Delete(game, player);
         }
-        public void GameList(List<Game> games)
+        public List<Game> ListGames()
+        {
+            List<Game> games = new List<Game>();
+            games = _gameManager.GetAllGames();
+            return games;
+        }
+
+        public void CampaignMainMenu()
         {
 
         }
+
+        public void CampaignAddMenu()
+        {
+
+        }
+
+        public void CampaignUpdateMenu()
+        {
+
+        }
+
+        public void CampaignDeleteMenu()
+        {
+
+        }
+
+
+
+
+
+
+
 
 
 
