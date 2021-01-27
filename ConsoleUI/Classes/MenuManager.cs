@@ -1,24 +1,15 @@
 ﻿using Business.Classes;
 using Entities;
 using System;
-using System.Collections.Generic;
-using DataAccess;
 
 namespace ConsoleUI
 {
     public class MenuManager
     {
-        PlayerManager _playerManager;
-        GameManager _gameManager;
-        CampaignManager _campaignManager;
+        PlayerManager _playerManager = new PlayerManager();
+        GameManager _gameManager =new GameManager();
+        CampaignManager _campaignManager = new CampaignManager();
         short _choice;
-
-        public MenuManager(PlayerManager playerManager, GameManager gameManager, CampaignManager campaignManager)
-        {
-            _playerManager = playerManager;
-            _gameManager = gameManager;
-            _campaignManager = campaignManager;
-        }
 
         public void MenuStart()
         {
@@ -31,18 +22,91 @@ namespace ConsoleUI
                 {
                     case 1:
                         PlayerMainMenu();
+                        switch (_choice)
+                        {
+                            case 1:
+                                PlayerAddMenu();
+                                break;
+
+                            case 2:
+                                PlayerUpdateMenu();
+                                break;
+
+                            case 3:
+                                PlayerDeleteMenu();
+                                break;
+
+                            case 4:
+                                Exit();
+                                break;
+
+                            default:
+                                Console.WriteLine("Hatalı seçim.");
+                                break;
+                        }
                         break;
 
                     case 2:
                         GameMainMenu();
+                        switch (_choice)
+                        {
+                            case 1:
+                                GameAddMenu();
+                                break;
+
+                            case 2:
+                                GameUpdateMenu();
+                                break;
+
+                            case 3:
+                                GameDeleteMenu();
+                                break;
+
+                            case 4:
+                                BuyGame();
+                                break;
+                            case 5:
+                                Exit();
+                                break;
+
+                            default:
+                                Console.WriteLine("Hatalı seçim.");
+                                break;
+                        }
                         break;
 
                     case 3:
                         CampaignMainMenu();
+                        switch (_choice)
+                        {
+                            case 1:
+                                CampaignAddMenu();
+                                break;
+
+                            case 2:
+                                CampaignUpdateMenu();
+                                break;
+
+                            case 3:
+                                CampaignDeleteMenu();
+                                break;
+
+                            case 4:
+                                Exit();
+                                break;
+
+                            default:
+                                Console.WriteLine("Hatalı seçim.");
+                                break;
+                        }
                         break;
 
                     case 4:
                         Exit();
+                        break;
+
+                    default:
+                        Console.WriteLine("Hatalı seçim.");
                         break;
                 }
             }
@@ -65,8 +129,8 @@ namespace ConsoleUI
             Console.WriteLine("---------- OYUNCU MENÜSÜ ----------");
             Console.WriteLine(" 1 - Oyuncu Ekleme");
             Console.WriteLine(" 2 - Oyuncu Güncelleme");
-            Console.WriteLine(" 2 - Oyuncu Silme");
-            Console.WriteLine(" 3 - Çıkış");
+            Console.WriteLine(" 3 - Oyuncu Silme");
+            Console.WriteLine(" 4 - Çıkış");
             Console.WriteLine("-----------------------------------");
             _choice = short.Parse(Console.ReadLine());
         }
@@ -91,8 +155,7 @@ namespace ConsoleUI
             string allofdate = $"{year} {month} {day}";
             dateOfBirth = DateTime.Parse(allofdate);
             Console.WriteLine(dateOfBirth);
-            int id = (_playerManager.PlayerCount()) + 1;
-            Player player = new Player() { Id = id, NationalityId = nationalityId, FirstName = firstName, LastName = lastName, NickName = nickName, DateOfBirth = dateOfBirth };
+            Player player = new Player() {NationalityId = nationalityId, FirstName = firstName, LastName = lastName, NickName = nickName, DateOfBirth = dateOfBirth };
             _playerManager.Add(player);
         }
         public void PlayerUpdateMenu()
@@ -119,13 +182,6 @@ namespace ConsoleUI
             Player player = new Player() { NationalityId = nationalityId, NickName = nickName };
             _playerManager.Delete(player);
         }
-        public void PlayerList()
-        {
-            foreach (var player in _playerManager.GetAllPlayers())
-            {
-                Console.WriteLine($"{player.NickName} mahlaslı oyuncu ve oyuncunun oyunları: {player.GameOwned}");
-            }
-        }
 
 
         public void GameMainMenu()
@@ -134,9 +190,8 @@ namespace ConsoleUI
             Console.WriteLine(" 1 - Oyun Ekleme");
             Console.WriteLine(" 2 - Oyun Güncelleme");
             Console.WriteLine(" 3 - Oyun Silme");
-            Console.WriteLine(" 4 - Oyunları listele");
-            Console.WriteLine(" 5 - Oyun Alma");
-            Console.WriteLine(" 6 - Çıkış");
+            Console.WriteLine(" 4 - Oyun Alma");
+            Console.WriteLine(" 5 - Çıkış");
             Console.WriteLine("-----------------------------------");
             _choice = short.Parse(Console.ReadLine());
         }
@@ -152,9 +207,8 @@ namespace ConsoleUI
             Console.Write("Oyunun fiyatı: ");
             int unitPrice = int.Parse(Console.ReadLine());
 
-            int id = (_gameManager.GameCount()) + 1;
-            Player player = new Player() {NickName = nickName};
-            Game game = new Game() {Id = id, GameName = gameName, GameDescription = gameDescription, UnitPrice = unitPrice};
+            Player player = new Player() { NickName = nickName };
+            Game game = new Game() {GameName = gameName, GameDescription = gameDescription, UnitPrice = unitPrice };
             _gameManager.Add(game, player);
         }
         public void GameUpdateMenu()
@@ -168,8 +222,8 @@ namespace ConsoleUI
             string gameDescription = Console.ReadLine();
             Console.Write("Oyunun Fiyatı: ");
             string UnitPrice = Console.ReadLine();
-            Player player = new Player() {NickName = nickName};
-            Game game = new Game() {GameName = gameName, GameDescription = "asd", Id = 5, UnitPrice = 5};
+            Player player = new Player() { NickName = nickName };
+            Game game = new Game() { GameName = gameName, GameDescription = "asd", Id = 5, UnitPrice = 5 };
             _gameManager.Update(game, player);
         }
         public void GameDeleteMenu()
@@ -179,16 +233,9 @@ namespace ConsoleUI
             string gameName = Console.ReadLine();
             Console.Write("Mahlasınız: ");
             string nickName = Console.ReadLine();
-            Game game = new Game() { GameName = gameName};
-            Player player = new Player() { NickName = nickName};
+            Game game = new Game() { GameName = gameName };
+            Player player = new Player() { NickName = nickName };
             _gameManager.Delete(game, player);
-        }
-        public void ListGames()
-        {
-            foreach (var game in _gameManager.GetAllGames())
-            {
-                Console.WriteLine($"{game.GameName} adlı oyun {game.UnitPrice} TL.");   
-            }
         }
         public void BuyGame()
         {
@@ -196,9 +243,9 @@ namespace ConsoleUI
             string nickName = Console.ReadLine();
             Console.WriteLine("Satın almak istediğiniz oyunun Id'sini giriniz: ");
             int id = int.Parse(Console.ReadLine());
-            Player player = new Player() {NickName = nickName};
-            Game game = new Game() {Id = id};
-            _gameManager.Buy(game,player);
+            Player player = new Player() { NickName = nickName };
+            Game game = new Game() { Id = id };
+            _gameManager.Buy(game, player);
         }
 
 
@@ -208,8 +255,7 @@ namespace ConsoleUI
             Console.WriteLine(" 1 - Kampanya Ekleme");
             Console.WriteLine(" 2 - Kampanya Güncelleme");
             Console.WriteLine(" 3 - Kampanya Silme");
-            Console.WriteLine(" 4 - Kampanyaları listele");
-            Console.WriteLine(" 5 - Çıkış");
+            Console.WriteLine(" 4 - Çıkış");
             Console.WriteLine("-----------------------------------");
             _choice = short.Parse(Console.ReadLine());
         }
@@ -223,8 +269,7 @@ namespace ConsoleUI
             Console.WriteLine("Kampanya başlığı: ");
             string title = Console.ReadLine();
 
-            int id = (_campaignManager.CampaignCount()) + 1;
-            Campaign campaign = new Campaign() {Id = id, GameID = gameId, DiscountRate = discountRate, Title = title};
+            Campaign campaign = new Campaign() {GameID = gameId, DiscountRate = discountRate, Title = title };
             _campaignManager.Add(campaign);
         }
         public void CampaignUpdateMenu()
@@ -247,15 +292,8 @@ namespace ConsoleUI
             Console.WriteLine("\n" + "\n" + "Silmek istediğiniz Kampanyanın Id'sini giriniz: ");
             int id = int.Parse(Console.ReadLine());
 
-            Campaign campaign = new Campaign() {Id = id};
+            Campaign campaign = new Campaign() { Id = id };
             _campaignManager.Add(campaign);
-        }
-        public void ListCampaign()
-        {
-            foreach (var campaign in _campaignManager.GetAllCampaigns())
-            {
-                Console.WriteLine($"{campaign.GameID} Id'li oyun %{campaign.DiscountRate} indirimde.");
-            }
         }
 
 

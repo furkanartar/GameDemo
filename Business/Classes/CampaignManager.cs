@@ -7,12 +7,7 @@ namespace Business.Classes
 {
     public class CampaignManager : ICampaignService
     {
-        private CampaignDal _campaignDal;
-
-        public CampaignManager(CampaignDal campaignDal)
-        {
-            _campaignDal = campaignDal;
-        }
+        private CampaignDal _campaignDal = new CampaignDal();
 
         public void Add(Campaign campaing)
         {

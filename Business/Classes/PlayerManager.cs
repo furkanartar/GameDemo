@@ -9,19 +9,13 @@ namespace Business.Classes
 {
     public class PlayerManager:IPlayerService
     {
-        PlayerDal _playerDal;
-        EdevletServiceAdapter edevletServiceAdapter;
-
-        public PlayerManager(PlayerDal playerDal, EdevletServiceAdapter edevletServiceAdapter)
-        {
-            _playerDal = playerDal;
-            this.edevletServiceAdapter = edevletServiceAdapter;
-        }
+        PlayerDal _playerDal = new PlayerDal();
+        PlayerValidationManager playerValidationManager = new PlayerValidationManager();
 
         public void Add(Player player)
         {
 
-            if (edevletServiceAdapter.CheckIfRealPerson(player))
+            if (playerValidationManager.CheckIfRealPerson(player))
             {
                 _playerDal.Add(player);
             }

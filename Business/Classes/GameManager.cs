@@ -10,10 +10,6 @@ namespace Business.Classes
     {
         private GameDal _gameDal;
 
-        public GameManager(GameDal gameDal)
-        {
-            _gameDal = gameDal;
-        }
 
         public void Buy(Game game, Player player)
         {
