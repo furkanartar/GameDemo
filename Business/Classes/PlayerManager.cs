@@ -7,13 +7,19 @@ using Entities;
 
 namespace Business.Classes
 {
-    public class PlayerManager:IPlayerManager
+    public class PlayerManager:IPlayerService
     {
-        PlayerDal _playerDal = new PlayerDal();
+        PlayerDal _playerDal;
+        EdevletServiceAdapter edevletServiceAdapter;
+
+        public PlayerManager(PlayerDal playerDal, EdevletServiceAdapter edevletServiceAdapter)
+        {
+            _playerDal = playerDal;
+            this.edevletServiceAdapter = edevletServiceAdapter;
+        }
 
         public void Add(Player player)
         {
-            EdevletServiceAdapter edevletServiceAdapter = new EdevletServiceAdapter();
 
             if (edevletServiceAdapter.CheckIfRealPerson(player))
             {
@@ -33,16 +39,6 @@ namespace Business.Classes
         public void Delete(Player player)
         {
             _playerDal.Delete(player);
-        }
-
-        public int PlayerCount()
-        {
-            return _playerDal.PlayerCount();
-        }
-
-        public List<Player> GetAllPlayers()
-        {
-            return _playerDal.GetAllPlayers();
         }
     }
 }

@@ -3,12 +3,10 @@ using Entities;
 
 namespace Business.Interfaces
 {
-    public interface IPlayerManager
+    public interface IPlayerService
     {
         void Add(Player player);
         void Update(Player player);
         void Delete(Player player);
-        int PlayerCount();
-        List<Player> GetAllPlayers();
     }
 }

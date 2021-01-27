@@ -2,7 +2,7 @@
 
 namespace DataAccess
 {
-    public interface IEdevletServiceAdapter
+    public interface IPlayerValidationService
     {
         bool CheckIfRealPerson(Player player);
     }

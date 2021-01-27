@@ -7,77 +7,24 @@ namespace DataAccess
 {
     public class GameDal : IGameDal
     {
-        List<Game> _games;
-
-        public GameDal()
-        {
-            new List<Game>()
-                {
-                    new Game() {Id = 1, GameName = "Metin2", GameDescription = "FREE TO PLAY! MMORPG", UnitPrice = 0},
-                    new Game() {Id = 2, GameName = "Sid Meier's Civilization VI", GameDescription = "STRATEGY", UnitPrice = 60},
-                    new Game() {Id = 3, GameName = "Counter Strike : Global Offensive", GameDescription = "FREE TO PLAY! FPS", UnitPrice = 0}
-                };
-        }
-
         public void Buy(Game game, Player player)
         {
-            PlayerDal playerDal = new PlayerDal(); 
-            foreach (var _player in playerDal.GetAllPlayers())
-            {
-                if (player.NationalityId == _player.NationalityId)
-                {
-                    _player.GameOwned += game.GameName;
-                }
-                else
-                {
-                    Console.WriteLine("Böyle bir oyuncu yok.");
-                }
-            }
-            Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından satın alındı.");
+            Console.WriteLine($"{game.GameName} adlı oyun {player.NickName} mahlaslı oyuncu tarafından satın alındı.");
         }
 
         public void Add(Game game, Player player)
         {
-            _games.Add(game);
-            Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından eklendi");
+            Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} mahlaslı oyuncu tarafından eklendi");
         }
 
         public void Delete(Game game, Player player)
         {
-            foreach (var _game in _games)
-            {
-                if (game.GameName == _game.GameName)
-                {
-                    _game.GameName = "DELETED";
-                    _game.GameDescription = "DELETED";
-                    _game.UnitPrice = 0;
-                }
-            }
-            Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından silindi");
+            Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} mahlaslı oyuncu tarafından silindi");
         }
 
         public void Update(Game game, Player player)
         {
-            foreach (var _game in _games)
-            {
-                if (_game.GameName == _game.GameName)
-                {
-                    _game.GameName = game.GameName;
-                    _game.GameDescription = game.GameDescription;
-                    _game.UnitPrice = game.UnitPrice;
-                }
-            }
-            Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} adlı oyuncu tarafından güncellendi.");
-        }
-
-        public int GameCount()
-        {
-            return _games.Count;
-        }
-
-        public List<Game> GetAllGames()
-        {
-            return _games;
+            Console.WriteLine($"{game.GameName} adlı oyun {player.FirstName} mahlaslı oyuncu tarafından güncellendi.");
         }
     }
 }

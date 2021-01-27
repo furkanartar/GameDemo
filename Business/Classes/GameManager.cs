@@ -6,9 +6,14 @@ using Entities;
 
 namespace Business.Classes
 {
-    public class GameManager:IGameManager
+    public class GameManager:IGameService
     {
-        private GameDal _gameDal = new GameDal();
+        private GameDal _gameDal;
+
+        public GameManager(GameDal gameDal)
+        {
+            _gameDal = gameDal;
+        }
 
         public void Buy(Game game, Player player)
         {
@@ -28,17 +33,6 @@ namespace Business.Classes
         public void Delete(Game game, Player player)
         {
             _gameDal.Delete(game, player);
-        }
-        public int GameCount()
-        {
-            return _gameDal.GameCount();
-        }
-
-        public List<Game> GetAllGames()
-        {
-            List<Game> games = new List<Game>();
-            games = _gameDal.GetAllGames();
-            return games;
         }
     }
 }

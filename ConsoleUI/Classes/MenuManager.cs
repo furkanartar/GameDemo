@@ -8,10 +8,17 @@ namespace ConsoleUI
 {
     public class MenuManager
     {
-        PlayerManager _playerManager = new PlayerManager();
-        GameManager _gameManager = new GameManager();
-        CampaignManager _campaignManager = new CampaignManager();
+        PlayerManager _playerManager;
+        GameManager _gameManager;
+        CampaignManager _campaignManager;
         short _choice;
+
+        public MenuManager(PlayerManager playerManager, GameManager gameManager, CampaignManager campaignManager)
+        {
+            _playerManager = playerManager;
+            _gameManager = gameManager;
+            _campaignManager = campaignManager;
+        }
 
         public void MenuStart()
         {

@@ -8,7 +8,5 @@ namespace DataAccess
         void Add(Campaign campaign);
         void Delete(Campaign campaign);
         void Update(Campaign campaign);
-        int CampaignCount();
-        List<Campaign> GetAllCampaigns();
     }
 }

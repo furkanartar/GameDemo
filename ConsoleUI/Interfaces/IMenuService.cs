@@ -1,6 +1,6 @@
 ﻿namespace ConsoleUI.Interfaces
 {
-    public interface IMenuManager
+    public interface IMenuService
     {
         
     }

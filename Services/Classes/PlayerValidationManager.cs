@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace DataAccess
 {
-    public class EdevletServiceAdapter : IEdevletServiceAdapter
+    public class PlayerValidationManager : IPlayerValidationService
     {
         private List<Player> players;
-        public EdevletServiceAdapter()
+        public PlayerValidationManager()
         {
             new List<Player>()
             {

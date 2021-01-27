@@ -1,13 +1,19 @@
-﻿using System.Collections.Generic;
-using Business.Interfaces;
+﻿using Business.Interfaces;
 using DataAccess;
 using Entities;
+using System.Collections.Generic;
 
 namespace Business.Classes
 {
-    public class CampaignManager : ICampaignManager
+    public class CampaignManager : ICampaignService
     {
-        private CampaignDal _campaignDal = new CampaignDal();
+        private CampaignDal _campaignDal;
+
+        public CampaignManager(CampaignDal campaignDal)
+        {
+            _campaignDal = campaignDal;
+        }
+
         public void Add(Campaign campaing)
         {
             _campaignDal.Add(campaing);
@@ -19,16 +25,6 @@ namespace Business.Classes
         public void Delete(Campaign campaing)
         {
             _campaignDal.Delete(campaing);
-        }
-
-        public int CampaignCount()
-        {
-            return _campaignDal.CampaignCount();
-        }
-
-        public List<Campaign> GetAllCampaigns()
-        {
-            return _campaignDal.GetAllCampaigns();
         }
     }
 }
